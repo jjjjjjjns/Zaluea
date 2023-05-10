@@ -182,7 +182,11 @@ a {
     margin-top: 13%;
     text-align: center;
     color: rgba(255, 255, 255, 0.842);
+    background: linear-gradient(to right, #ff00cc, #b321ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
 
 .games_title {
     font-size: 90px;
