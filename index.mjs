@@ -18,17 +18,18 @@ server.on('request', (request, response) => {
     });
     request.on('end', () => {
       const params = new URLSearchParams(body);
-      if (params.get('password') === PASSWORD) {
-        response.writeHead(302, {
-          'Set-Cookie': `Access=granted; Max-Age=${8*60*60}`,
-          'Location': '/'
-        });
-        response.end();
-      } else {
-        response.writeHead(401, {'Content-Type': 'text/plain'});
-        response.write('Invalid password');
-        response.end();
-      }
+  if (params.get('password') === PASSWORD) {
+  response.writeHead(302, {
+    'Set-Cookie': `Access=granted; Max-Age=${8*60*60}`,
+    'Location': '/'
+  });
+  response.end();
+} else {
+  response.writeHead(401, {'Content-Type': 'text/plain'});
+  response.write('Invalid password');
+  response.end();
+}
+
     });
     return;
   }
