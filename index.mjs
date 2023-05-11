@@ -8,13 +8,18 @@ const server = http.createServer();
 
 server.on('request', (request, response) => {
   if (bare.route_request(request, response)) return true;
-  if (checkAuthCookie(request)) {
-    serve.serve(request, response);
+  if (request.url.startsWith('/service')) {
+    if (checkAuthCookie(request)) {
+      serve.serve(request, response);
+    } else {
+      response.writeHead(401, { 'Content-Type': 'text/plain' });
+      response.end('Unauthorized');
+    }
   } else {
-    response.writeHead(401, { 'Content-Type': 'text/plain' });
-    response.end('Unauthorized');
+    serve.serve(request, response);
   }
 });
+
 
 server.on('upgrade', (req, socket, head) => {
   if (bare.route_upgrade(req, socket, head)) return;
