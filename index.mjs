@@ -8,17 +8,14 @@ const server = http.createServer();
 
 server.on('request', (request, response) => {
   if (bare.route_request(request, response)) return true;
-  if (request.url.startsWith('/service')) {
-    if (checkAuthCookie(request)) {
-      serve.serve(request, response);
-    } else {
-      response.writeHead(401, { 'Content-Type': 'text/plain' });
-      response.end('Unauthorized');
-    }
-  } else {
+  if (checkAuthCookie(request)) {
     serve.serve(request, response);
+  } else {
+    response.writeHead(401, { 'Content-Type': 'text/plain' });
+    response.end('Your Request Was UnAuthed By The TeamBlatant Security System');
   }
 });
+
 
 
 server.on('upgrade', (req, socket, head) => {
